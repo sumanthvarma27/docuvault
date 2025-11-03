@@ -1,10 +1,13 @@
+import 'package:docuvault/screens/firebase_check_screen.dart';
 import 'package:flutter/material.dart';
-import 'screens/login_screen.dart';
-import 'screens/home_screen.dart';
-import 'screens/upload_screen.dart';
-import 'screens/profile_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp();
+
   runApp(const DocuVaultApp());
 }
 
@@ -14,19 +17,10 @@ class DocuVaultApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DocuVault',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.grey[100],
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/home': (context) => HomeScreen(),
-        '/upload': (context) => UploadScreen(),
-        '/profile': (context) => ProfileScreen(),
-      },
+      title: 'DocuVault',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const FirebaseCheckScreen(), // temporary testing screen
     );
   }
 }
